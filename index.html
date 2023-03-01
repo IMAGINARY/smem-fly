@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      #appIframe:not(:fullscreen) {
+        visibility: hidden;
+        position: absolute;
+      }
+      body {
+        background-image: url("assets/background-light-sand.jpg");
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #appBtn {
+        padding: 10px;
+        border: 4px grey solid;
+        border-radius: 20px;
+        background-image: url("assets/background-turquoise.jpg");
+      }
+    </style>
+  </head>
+  <body>
+    <img src="assets/kite_1.png" width="150px" id="appBtn" />
+    <iframe
+      src="app_1/1_3/index.html?lang=en"
+      frameborder="0"
+      id="appIframe"
+    ></iframe>
+
+    <script>
+      document.getElementById("appBtn").addEventListener("click", () => {
+        console.log("clicked");
+
+        iframe = document.getElementById("appIframe");
+        iframe
+          .requestFullscreen()
+          .then(() => screen.orientation.lock("landscape"))
+          .then(
+            (success) => {
+              console.log(success);
+              iframe.width = screen.width;
+              iframe.height = screen.height;
+            },
+            (failure) => console.log(failure)
+          )
+          .catch((err) => {
+            alert(
+              `An error occurred while trying to switch into fullscreen mode: ${err.message} (${err.name})`
+            );
+          });
+      });
+    </script>
+  </body>
+</html>
