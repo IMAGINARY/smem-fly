@@ -51,6 +51,15 @@
     </div>
 
     <script>
+      function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
       function rescaleIframe() {
         const container = document.getElementById("appIframeContainer");
         const iframe = document.getElementById("appIframe");
@@ -86,6 +95,13 @@
           top: ${topOffset}px; left: ${leftOffset}px;
           transform: scale(${ratio}); transform-origin: left top;`;
       }
+
+      let lang = getParameterByName("lang");
+      if (!lang) {
+        lang = "en"; // fallback option
+      }
+      const iframe = document.getElementById("appIframe");
+      iframe.src = `app_1/1_3/index.html?lang=${lang}`;
 
       rescaleIframe();
 
