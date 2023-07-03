@@ -263,6 +263,7 @@
       lissajoue(t) := lissajoue(1, 2, pi/3, 2 * pi * t);
       lissajoueHard(t) := lissajoue(2, 3, pi/3, 2 * pi * t);
       lemiscate(t) := [cos(2 * pi * t), sin(2 * pi * t) * cos(2 * pi * t)]; // Lemiscate of Gerono
+      heart(t) := [16 * (sin(t))^3 , 13*cos(t) - 5*cos(2*t) - 2*cos(3*t) - cos(4*t)];
 
       createCurveStroke(name) := (
         result = sampleCircle(1, 2*pi);
@@ -274,6 +275,7 @@
         if(name == "square",    result = samplePolygon([(-1,1), (1,1), (1,-1), (-1,-1)]));
         if(name == "lemiscate", result = sampleCurve("lemiscate", 0, 1));
         if(name == "triangle", result = samplePolygon([(0,1), 0.5 * (-sqrt(3), -1), 0.5 * (sqrt(3), -1)]));
+        if(name == "heart", result = sampleCurve("heart", 0, 2*pi));
 
         result;
       );
@@ -555,9 +557,10 @@
 
 
 
-      curveNames = ["circle", "square", "triangle", "lemiscate", "lissajoue"];
+      curveNames = ["square", "triangle", "circle", "lemiscate", "lissajoue", "heart"];
       curvePositions = apply(0..2, dragonHome + [lerp(0, 20, #, 0, 2), -2]);
       curveScales = {
+        "heart": 0.8,
         "circle": 13,
         "ellipse": 12,
         "square": 11,
